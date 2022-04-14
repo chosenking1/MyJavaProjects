@@ -1,14 +1,24 @@
 package practiceProjects;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EmptyStackException;
+
+import static tictactoeGame.XAndO.O;
 
 public class NxMMatrix {
-private int [][] matrix = null;
-    public void createMatrix(int row, int column) {
+private int [][] matrix ;
+private final ArrayList<Integer> checker = new ArrayList<>();
+private int row;
+private int column;
+    int i =0;
+    int j =0;
+
+
+public void createMatrix(int row, int column) {
+    this.row = row;
+    this.column = column;
        matrix = new int[row][column];
-        for (int[] ints : matrix) {
-            Arrays.fill(ints, -999);
-        }
     }
 
     public int[][] getMatrix() {
@@ -21,20 +31,46 @@ private int [][] matrix = null;
 
 
     public void setMatrix(int input) {
-//        System.out.println(input);
-        for(int i =0; i < matrix.length; i++){
-            for(int j = 0; j < matrix[i].length; j++){
-                System.out.println(input);
+    matrix[i][j]= input;
+    updateRowColumn();
+    }
 
-                if(matrix[i][j] == -999){
-                matrix[i][j] = input;
-//                    System.out.println(input);
+    private void updateRowColumn() {
+            j++;
+        if (j > column-1){
+            i++;
+            j = 0;
+        }
 
-                    break;
+}
 
-                }
+    public int matrixDiagonalCheck() {
+        int count = 0;
+        for ( int i = 0; i < row -1; i++){
+        count = count + 1;
+        for (int j = 0; j < column -1; j++){
 
+        if (matrix[i][j] == matrix[i + 1][j + 1]) {
+            checker.add(1);
+        }
+        else{
+        checker.add(0);}
+        }
+        }
+        if (checker.contains(0)){
+            System.out.println(0);
+            return 0;
+        }
+        return 1;
+    }
+
+    public void matrixPrint(){
+        for(int i =0; i < row; i++){
+            for(int j = 0; j < column; j++) {
+                System.out.print(matrix[i][j] + " ");
             }
+            System.out.println(" ");
         }
     }
+
 }
